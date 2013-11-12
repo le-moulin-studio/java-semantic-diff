@@ -1,0 +1,34 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  antlr4
+}
+
+dependencies {
+  compile 'org.antlr:antlr4-runtime:4.1'
+  antlr4 'org.antlr:antlr4:4.1'
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir new File(buildDir, 'generated-sources/antlr4')
+    }
+  }
+}
+
+task generateGrammarSource << {
+  javaexec {
+    classpath configurations.antlr4
+    main 'org.antlr.v4.Tool'
+    args '-o', new File(buildDir, 'generated-sources/antlr4/com/lemoulinstudio/sdiff/parser/java'),
+         '-package', 'com.lemoulinstudio.sdiff.parser.java',
+         new File(projectDir, 'src/main/antlr4/Java.g4')
+  }
+}
+
+compileJava.dependsOn(generateGrammarSource)
