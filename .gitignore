@@ -1,4 +1,2 @@
 .gradle/
-/build/
-/CompareTree/CompareTree/nbproject/private/
-/CompareTree/CompareTree/build/
+build/

@@ -32,3 +32,5 @@ task generateGrammarSource << {
 }
 
 compileJava.dependsOn(generateGrammarSource)
+
+ext.mainClass = 'com.lemoulinstudio.sdiff.Main'
