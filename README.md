@@ -51,7 +51,9 @@ For example:
 
 # License
 
-To be defined later, will be an Open Source license.
+This project is distributed under the Affero General Public License (AGPL) version 3.
+The license's terms are defined in the file LICENSE.txt.
+For information about our license choice: [Why Affero GPL](http://www.gnu.org/licenses/why-affero-gpl.html).
 
 # Original Developers
 
