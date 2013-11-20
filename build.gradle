@@ -13,21 +13,33 @@ dependencies {
   antlr4 'org.antlr:antlr4:4.1'
 }
 
+ext.antlr4GeneratedSourceDir = new File(buildDir, 'generated-sources/antlr4')
+
 sourceSets {
   main {
     java {
-      srcDir new File(buildDir, 'generated-sources/antlr4')
+      srcDir antlr4GeneratedSourceDir
     }
   }
 }
 
-task generateGrammarSource << {
-  javaexec {
-    classpath configurations.antlr4
-    main 'org.antlr.v4.Tool'
-    args '-o', new File(buildDir, 'generated-sources/antlr4/com/lemoulinstudio/sdiff/parser/java'),
-         '-package', 'com.lemoulinstudio.sdiff.parser.java',
-         new File(projectDir, 'src/main/antlr4/Java.g4')
+task generateGrammarSource {
+  ext.grammarFile = new File(projectDir, 'src/main/antlr4/Java.g4')
+  ext.outputPackage = 'com.lemoulinstudio.sdiff.java.tree.lex'
+  ext.outputDir = new File(antlr4GeneratedSourceDir, outputPackage.replace('.' as char, File.pathSeparatorChar))
+  
+  inputs.file grammarFile
+  inputs.property 'outputPackage', outputPackage
+  outputs.dir outputDir
+  
+  doLast {
+    javaexec {
+      classpath configurations.antlr4
+      main 'org.antlr.v4.Tool'
+      args '-o', outputDir,
+           '-package', outputPackage,
+           grammarFile
+    }
   }
 }
 
