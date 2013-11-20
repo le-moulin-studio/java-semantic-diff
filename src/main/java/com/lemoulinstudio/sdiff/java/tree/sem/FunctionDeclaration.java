@@ -9,7 +9,7 @@ public abstract class FunctionDeclaration {
   boolean isFinal;
   Visibility visibility;
   
-  List<Parameter> parameters;
-  Parameter ellipsis;
+  List<DeclaredParameter> parameters;
+  DeclaredParameter ellipsis;
   
 }

@@ -1,6 +1,6 @@
 package com.lemoulinstudio.sdiff.java.tree.sem;
 
-public class Parameter {
+public class DeclaredParameter {
   
   FunctionDeclaration parent;
   Type type;
