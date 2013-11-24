@@ -1,4 +1,4 @@
-package com.lemoulinstudio.sdiff.diffelt;
+package com.lemoulinstudio.sdiff.content;
 
 import com.lemoulinstudio.sdiff.content.FileContentReference;
 

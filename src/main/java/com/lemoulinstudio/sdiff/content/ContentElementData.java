@@ -1,4 +1,4 @@
-package com.lemoulinstudio.sdiff.diffelt;
+package com.lemoulinstudio.sdiff.content;
 
 /**
  * The data of a content element.

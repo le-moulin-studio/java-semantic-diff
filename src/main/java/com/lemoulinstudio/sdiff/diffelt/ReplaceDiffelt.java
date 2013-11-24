@@ -1,5 +1,9 @@
 package com.lemoulinstudio.sdiff.diffelt;
 
+import com.lemoulinstudio.sdiff.content.ContentLocation;
+import com.lemoulinstudio.sdiff.content.ContentElementReference;
+import com.lemoulinstudio.sdiff.content.ContentElementData;
+
 /**
  * A diffelt representing the replacement or modification of a content element.
  */

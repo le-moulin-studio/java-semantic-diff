@@ -1,4 +1,4 @@
-package com.lemoulinstudio.sdiff.diffelt;
+package com.lemoulinstudio.sdiff.content;
 
 /**
  * A location inside a content.
