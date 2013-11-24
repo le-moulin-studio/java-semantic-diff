@@ -6,7 +6,7 @@ import java.io.File;
 /**
  * A reference to a content persisted in a file.
  */
-public class FileContentReference extends ContentReference {
+public class FileContentReference implements ContentReference {
   
   /**
    * The repository the content belongs to, if it exists.
