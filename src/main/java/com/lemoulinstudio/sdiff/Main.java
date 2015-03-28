@@ -1,20 +1,17 @@
 package com.lemoulinstudio.sdiff;
 
-import com.lemoulinstudio.sdiff.parser.java.JavaLexer;
-import com.lemoulinstudio.sdiff.parser.java.JavaParser;
+import com.lemoulinstudio.sdiff.java.tree.parser.JavaBaseListener;
+import com.lemoulinstudio.sdiff.java.tree.parser.JavaLexer;
+import com.lemoulinstudio.sdiff.java.tree.parser.JavaParser;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class Main {
@@ -22,18 +19,18 @@ public class Main {
   public static void main(String[] args) throws Exception {
     String filename = "src/main/resources/Foobar.java";
     JavaParser javaParser = getParser(filename);
-    
+
     String filename2 = "src/main/resources/Foobar2.java";
     JavaParser javaParser2 = getParser(filename2);
-    
+
 //    Future<JDialog> future = javaParser.compilationUnit().inspect(javaParser);
 //    future.get().setVisible(true);
     ParseTree a = javaParser.compilationUnit();
     ParseTree b = javaParser2.compilationUnit();
-    
+
     boolean r = isSimilar(a, b);
-    
-    System.out.print("Is similar ? "+ Boolean.toString(r));
+
+    System.out.print("Is similar ? " + Boolean.toString(r));
 
   }
 
@@ -56,37 +53,30 @@ public class Main {
         return false;
       }
     }
-    
+
     return true;
   }
-  
+
   private static JavaParser getParser(String filename) throws Exception {
-  InputStream inputStream = new BufferedInputStream(new FileInputStream(new File(filename)));
+    InputStream inputStream = new BufferedInputStream(new FileInputStream(new File(filename)));
 
     CharStream charStream = new ANTLRInputStream(inputStream);
 
     JavaLexer javaLexer = new JavaLexer(charStream);
-    
+
     TokenStream tokenStream = new BufferedTokenStream(javaLexer);
     JavaParser javaParser = new JavaParser(tokenStream);
 
-    javaParser.addParseListener(new ParseTreeListener() {
+    javaParser.addParseListener(new JavaBaseListener() {
       @Override
       public void visitTerminal(TerminalNode node) {
-        System.out.print(node.getText() + " ");
+//        Interval sourceInterval = node.getSourceInterval();
+//        System.out.println(
+//                "[" + sourceInterval.a + ", " + sourceInterval.b + "] " +
+//                "\"" + node.getText() + "\"");
+        System.out.print(node.getText());
       }
-
-      @Override
-      public void visitErrorNode(ErrorNode node) {
-      }
-
-      @Override
-      public void enterEveryRule(ParserRuleContext ctx) {
-      }
-
-      @Override
-      public void exitEveryRule(ParserRuleContext ctx) {
-      }
+      
     });
 
     javaParser.setBuildParseTree(true);
